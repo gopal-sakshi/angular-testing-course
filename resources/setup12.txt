@@ -1,0 +1,19 @@
+ERESOLVE error
+fix upstream dependency conflict & other errors
+webpack not installed & some other errors
+
+
+THIS WORKS
+
+rm -rf node_modules
+rm -f package-lock.json
+npm cache clean -f
+npm cache verify
+
+// SWITCH TO NODE VERSION 12
+nvm use 12
+npm install
+
+// SWITCH TO NODE VERSION 16 (coz, angular needs minimum node14)
+nvm use 16
+npm run test
