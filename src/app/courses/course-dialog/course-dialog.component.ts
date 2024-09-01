@@ -33,20 +33,13 @@ export class CourseDialogComponent implements OnInit {
 
     }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() { }
 
 
     save() {
-
       const val = this.form.value;
-
       this.coursesService.saveCourse(this.course.id, {titles: {description: val.description, longDescription: val.longDescription}})
-        .pipe(
-          tap(() => this.dialogRef.close(this.form.value))
-        )
-        .subscribe();
+        .pipe(tap(() => this.dialogRef.close(this.form.value))).subscribe();
     }
 
     close() {
