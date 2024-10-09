@@ -1,12 +1,12 @@
-import {CoursesService} from './courses.service';
-import {TestBed} from '@angular/core/testing';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {COURSES, findLessonsForCourse} from '../../../../server/db-data';
-import {Course} from '../model/course';
-import {HttpErrorResponse} from '@angular/common/http';
+import { CoursesService } from './courses.service';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { COURSES, findLessonsForCourse } from '../../../../server/db-data';
+import { Course } from '../model/course';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
-describe('CoursesService', () => {
+describe('CoursesService23', () => {
 
     let coursesService: CoursesService, httpTestingController: HttpTestingController;
 
@@ -15,11 +15,11 @@ describe('CoursesService', () => {
             imports: [ HttpClientTestingModule ],
             providers: [ CoursesService ]
         });
-        coursesService = TestBed.get(CoursesService),
-        httpTestingController = TestBed.get(HttpTestingController);
+        coursesService = TestBed.get(CoursesService),       // .get is deprecated; use .inject() like below
+        httpTestingController = TestBed.inject(HttpTestingController);
     });
 
-    it('should retrieve all courses', () => {
+    it('should retrieve all courses23', () => {
 
         coursesService.findAllCourses()
             .subscribe(courses => {
@@ -30,6 +30,7 @@ describe('CoursesService', () => {
             });
         const req = httpTestingController.expectOne('/api/courses');
         expect(req.request.method).toEqual("GET");
+        // req.flush({ payload: new Date().toISOString });          // deliberately throw ERROR
         req.flush({payload: Object.values(COURSES)});
     });
 
@@ -45,7 +46,7 @@ describe('CoursesService', () => {
     });
 
     it('should save the course data', () => {
-        const changes :Partial<Course> = { titles:{description: 'Testing Course'} };
+        const changes :Partial<Course> = { titles: { description: 'Testing Course' } };
         coursesService.saveCourse(12, changes)
             .subscribe(course => {
                 expect(course.id).toBe(12);
@@ -65,11 +66,10 @@ describe('CoursesService', () => {
 
         const changes :Partial<Course> = { titles:{description: 'Testing Course'} };
 
-        coursesService.saveCourse(12, changes)
-            .subscribe(
-                () => fail("the save course operation should have failed"),
-                (error: HttpErrorResponse) => { expect(error.status).toBe(500); }
-            );
+        coursesService.saveCourse(12, changes).subscribe(
+            () => fail("the save course operation should have failed"),
+            (error: HttpErrorResponse) => { expect(error.status).toBe(500); }
+        );
 
         const req = httpTestingController.expectOne('/api/courses/12');
         expect(req.request.method).toEqual("PUT");
@@ -98,7 +98,7 @@ describe('CoursesService', () => {
     });
 
     afterEach(() => {
-        httpTestingController.verify();
+        httpTestingController.verify();         // verify there are no outstanding requestssssss
     });
 
 });

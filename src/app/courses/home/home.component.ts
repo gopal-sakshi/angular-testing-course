@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { CoursesService } from "../services/courses.service";
 import { map } from "rxjs/operators";
 import { sortCoursesBySeqNo } from './sort-course-by-seq';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'home',
@@ -12,12 +13,13 @@ import { sortCoursesBySeqNo } from './sort-course-by-seq';
 })
 export class HomeComponent implements OnInit {
 
+    allCourses:Course[] = [];
     beginnerCourses$: Observable<Course[]>;
     advancedCourses$: Observable<Course[]>;
 
     constructor(private coursesService: CoursesService) { }
 
-    ngOnInit() {
+    ngOnInit() {        
         this.reloadCourses();
     }
 

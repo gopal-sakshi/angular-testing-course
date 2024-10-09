@@ -27,7 +27,7 @@ export function searchLessons(req: Request, res: Response) {
 
     setTimeout(() => {
         res.status(200).json({payload: lessonsPage});
-    },5000);
+    },100);
 
 
 }

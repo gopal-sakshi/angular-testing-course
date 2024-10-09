@@ -6,26 +6,10 @@ import {CourseComponent} from "./courses/course/course.component";
 import {CourseResolver} from "./courses/services/course.resolver";
 
 const routes: Routes = [
-    {
-        path: "",
-        component: HomeComponent
-
-    },
-    {
-        path: "about",
-        component: AboutComponent
-    },
-    {
-        path: 'courses/:id',
-        component: CourseComponent,
-        resolve: {
-            course: CourseResolver
-        }
-    },
-    {
-        path: "**",
-        redirectTo: '/'
-    }
+    { path: "", component: HomeComponent },
+    { path: "about", component: AboutComponent },
+    { path: 'courses/:id', component: CourseComponent, resolve: { course: CourseResolver } },
+    { path: "**", redirectTo: '/' }
 ];
 
 @NgModule({
